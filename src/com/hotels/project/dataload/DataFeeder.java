@@ -10,6 +10,9 @@ import com.hotels.project.common.EntityMetadata;
 import com.hotels.project.entity.Category;
 import com.hotels.project.entity.Item;
 import com.hotels.project.entity.Tax;
+import com.hotels.project.entity.dto.CategoryDTO;
+import com.hotels.project.entity.dto.ItemDTO;
+import com.hotels.project.entity.dto.TaxDTO;
 import com.hotels.project.entity.factory.AbstractFactory;
 import com.hotels.project.entity.factory.FactoryProducer;
 import com.hotels.project.entity.implimentation.CategoryGeneral;
@@ -59,86 +62,98 @@ public class DataFeeder {
 		AbstractFactory itemFactory = FactoryProducer.getFactory(EntityMetadata.FACTORY_ITEM);
 
 		doll = (ItemGift) itemFactory.getItem(EntityMetadata.ITEM_GIFT);
-		doll.setItemID("item07");
-		doll.setItemName("doll");
-		doll.setItemPrice(80.02f);
-		doll.setDiscount(20);
-		doll.setTaxes(new HashSet<Tax>(Arrays.asList(gstTax, generalSalesTaxKids)));
+		doll.setItem(new ItemDTO());
+		doll.getItem().setItemID("item07");
+		doll.getItem().setItemName("doll");
+		doll.getItem().setItemPrice(80.02f);
+		doll.getItem().setDiscount(20);
+		doll.getItem().setTaxes(new HashSet<Tax>(Arrays.asList(gstTax, generalSalesTaxKids)));
 
 		flowervas = (ItemFragile) itemFactory.getItem(EntityMetadata.ITEM_FRAGILE);
-		flowervas.setItemID("item06");
-		flowervas.setItemName("flowervas");
-		flowervas.setItemPrice(200.02f);
-		flowervas.setDiscount(10);
-		flowervas.setTaxes(new HashSet<Tax>(Arrays.asList(gstTax)));
+		flowervas.setItem(new ItemDTO());
+		flowervas.getItem().setItemID("item06");
+		flowervas.getItem().setItemName("flowervas");
+		flowervas.getItem().setItemPrice(200.02f);
+		flowervas.getItem().setDiscount(10);
+		flowervas.getItem().setTaxes(new HashSet<Tax>(Arrays.asList(gstTax)));
 
 		fridge = (ItemHeavy) itemFactory.getItem(EntityMetadata.ITEM_HEAVY);
-		fridge.setItemID("item05");
-		fridge.setItemName("fridge");
-		fridge.setItemPrice(1000.02f);
-		fridge.setDiscount(10);
-		fridge.setTaxes(new HashSet<Tax>(Arrays.asList(generalSalesTax, gstTax)));
+		fridge.setItem(new ItemDTO());
+		fridge.getItem().setItemID("item05");
+		fridge.getItem().setItemName("fridge");
+		fridge.getItem().setItemPrice(1000.02f);
+		fridge.getItem().setDiscount(10);
+		fridge.getItem().setTaxes(new HashSet<Tax>(Arrays.asList(generalSalesTax, gstTax)));
 
 		wine = (ItemGrocerry) itemFactory.getItem(EntityMetadata.ITEM_GROCERRY);
-		wine.setItemID("item01");
-		wine.setItemName("wine");
-		wine.setItemPrice(100.02f);
-		wine.setTaxes(new HashSet<Tax>(Arrays.asList(generalSalesTax, alcholeSalesTax)));
+		wine.setItem(new ItemDTO());
+		wine.getItem().setItemID("item01");
+		wine.getItem().setItemName("wine");
+		wine.getItem().setItemPrice(100.02f);
+		wine.getItem().setTaxes(new HashSet<Tax>(Arrays.asList(generalSalesTax, alcholeSalesTax)));
 
 		chocolate = (ItemGrocerry) itemFactory.getItem(EntityMetadata.ITEM_GROCERRY);
-		chocolate.setItemID("item02");
-		chocolate.setItemName("chocolate");
-		chocolate.setItemPrice(80.00f);
-		chocolate.setDiscount(2.0f);
-		chocolate.setTaxes(new HashSet<Tax>(Arrays.asList(generalSalesTax)));
+		chocolate.setItem(new ItemDTO());
+		chocolate.getItem().setItemID("item02");
+		chocolate.getItem().setItemName("chocolate");
+		chocolate.getItem().setItemPrice(80.00f);
+		chocolate.getItem().setDiscount(2.0f);
+		chocolate.getItem().setTaxes(new HashSet<Tax>(Arrays.asList(generalSalesTax)));
 
 		paracitamol = (ItemMedicine) itemFactory.getItem(EntityMetadata.ITEM_MEDICINE);
-		paracitamol.setItemID("item03");
-		paracitamol.setItemName("paracitamol");
-		paracitamol.setItemPrice(10.56f);
-		paracitamol.setDiscount(8);
-		paracitamol.setTaxes(new HashSet<Tax>(Arrays.asList(generalSalesTax)));
+		paracitamol.setItem(new ItemDTO());
+		paracitamol.getItem().setItemID("item03");
+		paracitamol.getItem().setItemName("paracitamol");
+		paracitamol.getItem().setItemPrice(10.56f);
+		paracitamol.getItem().setDiscount(8);
+		paracitamol.getItem().setTaxes(new HashSet<Tax>(Arrays.asList(generalSalesTax)));
 
 		crocine = (ItemMedicine) itemFactory.getItem(EntityMetadata.ITEM_MEDICINE);
-		crocine.setItemID("item04");
-		crocine.setItemName("crocine");
-		crocine.setItemPrice(7.89f);
-		crocine.setDiscount(9);
-		crocine.setTaxes(new HashSet<Tax>(Arrays.asList(medicineSalesTax)));
+		crocine.setItem(new ItemDTO());
+		crocine.getItem().setItemID("item04");
+		crocine.getItem().setItemName("crocine");
+		crocine.getItem().setItemPrice(7.89f);
+		crocine.getItem().setDiscount(9);
+		crocine.getItem().setTaxes(new HashSet<Tax>(Arrays.asList(medicineSalesTax)));
 
 	}
 
 	private void feedTax() {
 		AbstractFactory taxFactory = FactoryProducer.getFactory(EntityMetadata.FACTORY_TAX);
 		generalSalesTax = (TaxSales) taxFactory.getTax(EntityMetadata.TAX_SALES);
-		generalSalesTax.setPercentage(20.00f);
-		generalSalesTax.setTaxID("sale01");
-		generalSalesTax.setTaxName("SalesTax");
-		taxTable.put(generalSalesTax.getTaxName(), generalSalesTax);
+		generalSalesTax.setTax(new TaxDTO());
+		generalSalesTax.getTax().setPercentage(20.00f);
+		generalSalesTax.getTax().setTaxID("sale01");
+		generalSalesTax.getTax().setTaxName("SalesTax");
+		taxTable.put(generalSalesTax.getTax().getTaxName(), generalSalesTax);
 
 		generalSalesTaxKids = (TaxSales) taxFactory.getTax(EntityMetadata.TAX_SALES);
-		generalSalesTaxKids.setPercentage(-10.02f);
-		generalSalesTaxKids.setTaxID("ksale01");
-		generalSalesTaxKids.setTaxName("SalesTaxKids");
-		taxTable.put(generalSalesTaxKids.getTaxName(), generalSalesTaxKids);
+		generalSalesTaxKids.setTax(new TaxDTO());
+		generalSalesTaxKids.getTax().setPercentage(-10.02f);
+		generalSalesTaxKids.getTax().setTaxID("ksale01");
+		generalSalesTaxKids.getTax().setTaxName("SalesTaxKids");
+		taxTable.put(generalSalesTaxKids.getTax().getTaxName(), generalSalesTaxKids);
 
 		alcholeSalesTax = (TaxSales) taxFactory.getTax(EntityMetadata.TAX_SALES);
-		alcholeSalesTax.setPercentage(10.00f);
-		alcholeSalesTax.setTaxID("sale02");
-		alcholeSalesTax.setTaxName("Alcholetax");
-		taxTable.put(alcholeSalesTax.getTaxName(), alcholeSalesTax);
+		alcholeSalesTax.setTax(new TaxDTO());
+		alcholeSalesTax.getTax().setPercentage(10.00f);
+		alcholeSalesTax.getTax().setTaxID("sale02");
+		alcholeSalesTax.getTax().setTaxName("Alcholetax");
+		taxTable.put(alcholeSalesTax.getTax().getTaxName(), alcholeSalesTax);
 
 		medicineSalesTax = (TaxSales) taxFactory.getTax(EntityMetadata.TAX_SALES);
-		medicineSalesTax.setPercentage(0.00f);
-		medicineSalesTax.setTaxID("sale03");
-		medicineSalesTax.setTaxName("freeMedicine");
-		taxTable.put(medicineSalesTax.getTaxName(), medicineSalesTax);
+		medicineSalesTax.setTax(new TaxDTO());
+		medicineSalesTax.getTax().setPercentage(0.00f);
+		medicineSalesTax.getTax().setTaxID("sale03");
+		medicineSalesTax.getTax().setTaxName("freeMedicine");
+		taxTable.put(medicineSalesTax.getTax().getTaxName(), medicineSalesTax);
 
 		gstTax = (TaxGST) taxFactory.getTax(EntityMetadata.TAX_GST);
-		gstTax.setPercentage(0.20f);
-		gstTax.setTaxID("gst1");
-		gstTax.setTaxName("GST");
-		taxTable.put(gstTax.getTaxName(), gstTax);
+		gstTax.setTax(new TaxDTO());
+		gstTax.getTax().setPercentage(0.20f);
+		gstTax.getTax().setTaxID("gst1");
+		gstTax.getTax().setTaxName("GST");
+		taxTable.put(gstTax.getTax().getTaxName(), gstTax);
 
 	}
 
@@ -146,40 +161,45 @@ public class DataFeeder {
 		AbstractFactory categoryFactory = FactoryProducer.getFactory(EntityMetadata.FACTORY_CATEGORY);
 
 		categoryGeneral = (CategoryGeneral) categoryFactory.getCategory(EntityMetadata.CATEGORY_GENERAL);
-		categoryGeneral.setCategoryID("cat01");
-		categoryGeneral.setCategoryName("categoryGeneral");
-		categoryGeneral.setApplicableTaxs(new HashSet<Tax>(Arrays.asList(generalSalesTax, gstTax)));
+		categoryGeneral.setCategory(new CategoryDTO());
+		categoryGeneral.getCategory().setCategoryID("cat01");
+		categoryGeneral.getCategory().setCategoryName("categoryGeneral");
+		categoryGeneral.getCategory().setApplicableTaxs(new HashSet<Tax>(Arrays.asList(generalSalesTax, gstTax)));
 
 		freeMedicine = (CategoryMedicine) categoryFactory.getCategory(EntityMetadata.CATEGORY_MEDICINE);
-		freeMedicine.setCategoryID("cat02");
-		freeMedicine.setCategoryName("Medicine");
-		freeMedicine.setDiscount(2.7f);
-		freeMedicine.setApplicableTaxs(new HashSet<Tax>(Arrays.asList(medicineSalesTax)));
+		freeMedicine.setCategory(new CategoryDTO());
+		freeMedicine.getCategory().setCategoryID("cat02");
+		freeMedicine.getCategory().setCategoryName("Medicine");
+		freeMedicine.getCategory().setDiscount(2.7f);
+		freeMedicine.getCategory().setApplicableTaxs(new HashSet<Tax>(Arrays.asList(medicineSalesTax)));
 
 		categoryKids = (CategoryKids) categoryFactory.getCategory(EntityMetadata.CATEGORY_KIDS);
-		categoryKids.setCategoryID("cat03");
-		categoryKids.setCategoryName("GrocerryKids");
-		categoryKids.setApplicableTaxs(new HashSet<Tax>(Arrays.asList(generalSalesTaxKids)));
-		categoryKids.setDiscount(3);
+		categoryKids.setCategory(new CategoryDTO());
+		categoryKids.getCategory().setCategoryID("cat03");
+		categoryKids.getCategory().setCategoryName("GrocerryKids");
+		categoryKids.getCategory().setApplicableTaxs(new HashSet<Tax>(Arrays.asList(generalSalesTaxKids)));
+		categoryKids.getCategory().setDiscount(3);
 
 		categoryGift = (CategoryGift) categoryFactory.getCategory(EntityMetadata.CATEGORY_GIFT);
-		categoryGift.setCategoryID("cat04");
-		categoryGift.setCategoryName("categoryGift");
-		categoryGift.setDiscount(5.7f);
-		categoryGift.setApplicableTaxs(new HashSet<Tax>(Arrays.asList(generalSalesTax)));
+		categoryGift.setCategory(new CategoryDTO());
+		categoryGift.getCategory().setCategoryID("cat04");
+		categoryGift.getCategory().setCategoryName("categoryGift");
+		categoryGift.getCategory().setDiscount(5.7f);
+		categoryGift.getCategory().setApplicableTaxs(new HashSet<Tax>(Arrays.asList(generalSalesTax)));
 
 		categoryHeavyWeight = (CategoryHeavyWeight) categoryFactory.getCategory(EntityMetadata.CATEGORY_HEAVYWEIGHT);
-		categoryHeavyWeight.setCategoryID("cat05");
-		categoryHeavyWeight.setCategoryName("categoryHeavyWeight");
-		categoryHeavyWeight.setDiscount(15.8f);
-		categoryHeavyWeight.setApplicableTaxs(new HashSet<Tax>(Arrays.asList(generalSalesTax, gstTax)));
+		categoryHeavyWeight.setCategory(new CategoryDTO());
+		categoryHeavyWeight.getCategory().setCategoryID("cat05");
+		categoryHeavyWeight.getCategory().setCategoryName("categoryHeavyWeight");
+		categoryHeavyWeight.getCategory().setDiscount(15.8f);
+		categoryHeavyWeight.getCategory().setApplicableTaxs(new HashSet<Tax>(Arrays.asList(generalSalesTax, gstTax)));
 
 	}
 
 	private void mappingCategory() { // representing entity relation
-		categoryGeneral.setItems(new HashSet<Item>(Arrays.asList(wine, chocolate)));
-		categoryKids.setItems(new HashSet<Item>(Arrays.asList(chocolate)));
-		freeMedicine.setItems(new HashSet<Item>(Arrays.asList(paracitamol)));
+		categoryGeneral.getCategory().setItems(new HashSet<Item>(Arrays.asList(wine, chocolate)));
+		categoryKids.getCategory().setItems(new HashSet<Item>(Arrays.asList(chocolate)));
+		freeMedicine.getCategory().setItems(new HashSet<Item>(Arrays.asList(paracitamol)));
 
 		feedItemCategoryMapping();
 	}
@@ -205,9 +225,6 @@ public class DataFeeder {
 		cart.addToCart(fridge);
 		cart.addToCart(flowervas);
 		cart.addToCart(doll);
-		
-		
-		
 
 	}
 

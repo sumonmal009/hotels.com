@@ -1,17 +1,11 @@
 package com.hotels.project.entity;
 
-import java.util.Set;
+import com.hotels.project.entity.dto.ItemDTO;
 
 public interface Item {
-	String getItemName();
-
-	float getItemPrice();
-
-	Set<Tax> getApplicableTaxs();
+	public ItemDTO getItem();
 
 	void executeItemRule();
-
-	float getDiscount();
 
 	Packing packing();
 

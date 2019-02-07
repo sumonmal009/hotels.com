@@ -20,7 +20,7 @@ public class Packer {
 
 			for (Map.Entry<Item, Integer> itemEntry : CustomersCart.getCart().entrySet()) {
 				item = itemEntry.getKey();
-				System.out.println("Packing " + item.getItemName() + ". " + item.packing().pack());
+				System.out.println("Packing " + item.getItem().getItemName() + ". " + item.packing().pack());
 				if (showItemGuildlineInfo) {
 					infoPrinter.printItemGuidelineInfo(item);
 				}

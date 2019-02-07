@@ -45,17 +45,17 @@ public class Billing {
 		for (Map.Entry<Item, Integer> itemEntry : cart.entrySet()) {
 			Item item = itemEntry.getKey();
 			int itemQuantity = itemEntry.getValue();
-			float itemPriceWithQuantity = item.getItemPrice()* itemQuantity;
-			System.out.println("Item: " + item.getItemName() + " Qty1 Price: " + decimalFormat.format(item.getItemPrice()) +" Quantity:"+itemQuantity+" Price:"+decimalFormat.format(itemPriceWithQuantity));
+			float itemPriceWithQuantity = item.getItem().getItemPrice()* itemQuantity;
+			System.out.println("Item: " + item.getItem().getItemName() + " Qty1 Price: " + decimalFormat.format(item.getItem().getItemPrice()) +" Quantity:"+itemQuantity+" Price:"+decimalFormat.format(itemPriceWithQuantity));
 			if (discountOnProduct && faltOffAll == 0) {
-				itemDiscount = (itemPriceWithQuantity * (item.getDiscount() / 100));
-				System.out.println("Discount on Item:" + decimalFormat.format(item.getDiscount()) + " is: "
+				itemDiscount = (itemPriceWithQuantity * (item.getItem().getDiscount() / 100));
+				System.out.println("Discount on Item:" + decimalFormat.format(item.getItem().getDiscount()) + " is: "
 						+ decimalFormat.format(itemDiscount));
 			}
 			if (discountOnCategory && faltOffAll == 0) {
 
 				for (Category category : DataFeeder.itemCategoryMapping.get(item)) {
-					categoryDiscountpercent = categoryDiscountpercent + category.getDiscount();
+					categoryDiscountpercent = categoryDiscountpercent + category.getCategory().getDiscount();
 
 				}
 				categoryDiscount = ((itemPriceWithQuantity - itemDiscount) * (categoryDiscountpercent / 100));
@@ -73,7 +73,7 @@ public class Billing {
 				while (taxes.hasNext()) {
 					Tax tax = taxes.next();
 					itemTaxes.add(tax);
-					itemTaxpercent = itemTaxpercent + tax.getPercentage();
+					itemTaxpercent = itemTaxpercent + tax.getTax().getPercentage();
 				}
 
 			}
@@ -84,7 +84,7 @@ public class Billing {
 					while (taxes.hasNext()) {
 						Tax tax = taxes.next();
 						categoryTaxes.add(tax);
-						categoryTaxpercent = categoryTaxpercent + tax.getPercentage();
+						categoryTaxpercent = categoryTaxpercent + tax.getTax().getPercentage();
 					}
 				}
 
@@ -140,9 +140,9 @@ public class Billing {
 	private Set<Tax> getTaxes(Object obj) {
 		Set<Tax> taxes = new HashSet<>();
 		if (obj instanceof Category) {
-			taxes = ((Category) obj).getApplicableTaxs();
+			taxes = ((Category) obj).getCategory().getApplicableTaxs();
 		} else if (obj instanceof Item) {
-			taxes = ((Item) obj).getApplicableTaxs();
+			taxes = ((Item) obj).getItem().getApplicableTaxs();
 		}
 
 		// Filter Patern
