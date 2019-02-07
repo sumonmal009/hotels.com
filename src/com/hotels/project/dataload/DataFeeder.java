@@ -20,6 +20,7 @@ import com.hotels.project.entity.implimentation.CategoryGift;
 import com.hotels.project.entity.implimentation.CategoryHeavyWeight;
 import com.hotels.project.entity.implimentation.CategoryKids;
 import com.hotels.project.entity.implimentation.CategoryMedicine;
+import com.hotels.project.entity.implimentation.CategoryNewArrival;
 import com.hotels.project.entity.implimentation.ItemFragile;
 import com.hotels.project.entity.implimentation.ItemGift;
 import com.hotels.project.entity.implimentation.ItemGrocerry;
@@ -47,6 +48,7 @@ public class DataFeeder {
 	CategoryGift categoryGift;
 	CategoryHeavyWeight categoryHeavyWeight;
 	CategoryMedicine categoryMedicine;
+	//CategoryNewArrival categoryNewArrival;
 
 	public DataFeeder() {
 		feedTax();
@@ -157,6 +159,14 @@ public class DataFeeder {
 
 	}
 
+	private void mappingCategory() { // representing entity relation
+		categoryGeneral.getCategory().setItems(new HashSet<Item>(Arrays.asList(wine, chocolate)));
+		categoryKids.getCategory().setItems(new HashSet<Item>(Arrays.asList(chocolate)));
+		freeMedicine.getCategory().setItems(new HashSet<Item>(Arrays.asList(paracitamol)));
+
+		feedItemCategoryMapping();
+	}
+
 	private void feedCategory() {
 		AbstractFactory categoryFactory = FactoryProducer.getFactory(EntityMetadata.FACTORY_CATEGORY);
 
@@ -193,15 +203,14 @@ public class DataFeeder {
 		categoryHeavyWeight.getCategory().setCategoryName("categoryHeavyWeight");
 		categoryHeavyWeight.getCategory().setDiscount(15.8f);
 		categoryHeavyWeight.getCategory().setApplicableTaxs(new HashSet<Tax>(Arrays.asList(generalSalesTax, gstTax)));
-
-	}
-
-	private void mappingCategory() { // representing entity relation
-		categoryGeneral.getCategory().setItems(new HashSet<Item>(Arrays.asList(wine, chocolate)));
-		categoryKids.getCategory().setItems(new HashSet<Item>(Arrays.asList(chocolate)));
-		freeMedicine.getCategory().setItems(new HashSet<Item>(Arrays.asList(paracitamol)));
-
-		feedItemCategoryMapping();
+/*
+		categoryNewArrival = (CategoryNewArrival) categoryFactory.getCategory(EntityMetadata.CATEGORY_NEW_ARRIAVEL);
+		categoryNewArrival.setCategory(new CategoryDTO());
+		categoryNewArrival.getCategory().setCategoryID("cat06");
+		categoryNewArrival.getCategory().setCategoryName("categoryNewArrival");
+		categoryNewArrival.getCategory().setDiscount(35.8f);
+		categoryNewArrival.getCategory().setApplicableTaxs(new HashSet<Tax>(Arrays.asList(generalSalesTax, gstTax)));
+*/
 	}
 
 	private void feedItemCategoryMapping() { // representing Table
@@ -210,7 +219,7 @@ public class DataFeeder {
 		itemCategoryMapping.put(paracitamol, new HashSet<Category>(Arrays.asList(freeMedicine)));
 		itemCategoryMapping.put(crocine, new HashSet<Category>(Arrays.asList(freeMedicine)));
 		itemCategoryMapping.put(doll, new HashSet<Category>(Arrays.asList(categoryKids, categoryGift)));
-		itemCategoryMapping.put(fridge, new HashSet<Category>(Arrays.asList(categoryHeavyWeight, categoryGeneral)));
+		itemCategoryMapping.put(fridge, new HashSet<Category>(Arrays.asList(categoryHeavyWeight)));
 		itemCategoryMapping.put(flowervas, new HashSet<Category>(Arrays.asList(categoryGift)));
 	}
 
