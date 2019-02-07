@@ -9,6 +9,7 @@ import com.hotels.project.entity.implimentation.CategoryGift;
 import com.hotels.project.entity.implimentation.CategoryHeavyWeight;
 import com.hotels.project.entity.implimentation.CategoryKids;
 import com.hotels.project.entity.implimentation.CategoryMedicine;
+import com.hotels.project.entity.implimentation.CategoryNewArrival;
 
 public class CategoryFactory extends AbstractFactory {
 
@@ -30,6 +31,8 @@ public class CategoryFactory extends AbstractFactory {
 			return new CategoryGift();
 		case CATEGORY_HEAVYWEIGHT:
 			return new CategoryHeavyWeight();
+		case CATEGORY_NEW_ARRIAVEL:
+			return new CategoryNewArrival();
 
 		default:
 			return null;

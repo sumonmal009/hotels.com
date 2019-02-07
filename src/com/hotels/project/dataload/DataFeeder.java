@@ -48,7 +48,7 @@ public class DataFeeder {
 	CategoryGift categoryGift;
 	CategoryHeavyWeight categoryHeavyWeight;
 	CategoryMedicine categoryMedicine;
-	//CategoryNewArrival categoryNewArrival;
+	CategoryNewArrival categoryNewArrival;
 
 	public DataFeeder() {
 		feedTax();
@@ -201,16 +201,16 @@ public class DataFeeder {
 		categoryHeavyWeight.setCategory(new CategoryDTO());
 		categoryHeavyWeight.getCategory().setCategoryID("cat05");
 		categoryHeavyWeight.getCategory().setCategoryName("categoryHeavyWeight");
-		categoryHeavyWeight.getCategory().setDiscount(15.8f);
+		categoryHeavyWeight.getCategory().setDiscount(15.9f);
 		categoryHeavyWeight.getCategory().setApplicableTaxs(new HashSet<Tax>(Arrays.asList(generalSalesTax, gstTax)));
-/*
+
 		categoryNewArrival = (CategoryNewArrival) categoryFactory.getCategory(EntityMetadata.CATEGORY_NEW_ARRIAVEL);
 		categoryNewArrival.setCategory(new CategoryDTO());
 		categoryNewArrival.getCategory().setCategoryID("cat06");
 		categoryNewArrival.getCategory().setCategoryName("categoryNewArrival");
-		categoryNewArrival.getCategory().setDiscount(35.8f);
+		categoryNewArrival.getCategory().setDiscount(30.8f);
 		categoryNewArrival.getCategory().setApplicableTaxs(new HashSet<Tax>(Arrays.asList(generalSalesTax, gstTax)));
-*/
+
 	}
 
 	private void feedItemCategoryMapping() { // representing Table
@@ -219,7 +219,7 @@ public class DataFeeder {
 		itemCategoryMapping.put(paracitamol, new HashSet<Category>(Arrays.asList(freeMedicine)));
 		itemCategoryMapping.put(crocine, new HashSet<Category>(Arrays.asList(freeMedicine)));
 		itemCategoryMapping.put(doll, new HashSet<Category>(Arrays.asList(categoryKids, categoryGift)));
-		itemCategoryMapping.put(fridge, new HashSet<Category>(Arrays.asList(categoryHeavyWeight)));
+		itemCategoryMapping.put(fridge, new HashSet<Category>(Arrays.asList(categoryHeavyWeight,categoryNewArrival)));
 		itemCategoryMapping.put(flowervas, new HashSet<Category>(Arrays.asList(categoryGift)));
 	}
 
