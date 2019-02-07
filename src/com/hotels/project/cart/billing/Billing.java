@@ -19,19 +19,19 @@ import com.hotels.project.util.DateTime;
 
 public class Billing {
 
-	boolean categoryOverride = Boolean.valueOf(Configuration.ConfigValues.getProperty("CATEGORY_OVERRIDE"));
+	boolean categoryOverride = Boolean.valueOf(Configuration.ConfigValues.getProperty("category.override"));
 	boolean considerHigherTaxOverride = Boolean
-			.valueOf(Configuration.ConfigValues.getProperty("CONSIDER_HIGHER_TAX_OVERRIDE"));
+			.valueOf(Configuration.ConfigValues.getProperty("consider.higher.tax.override"));
 	boolean considerLowerTaxOverride = Boolean
-			.valueOf(Configuration.ConfigValues.getProperty("CONSIDER_LOWER_TAX_OVERRIDE"));
+			.valueOf(Configuration.ConfigValues.getProperty("consider.lower.tax.override"));
 	DecimalFormat decimalFormat = new DecimalFormat("#.00");
-	boolean discountOnCategory = Boolean.valueOf(Configuration.ConfigValues.getProperty("CATEGORY_DISCOUNT"));
-	boolean discountOnProduct = Boolean.valueOf(Configuration.ConfigValues.getProperty("PRODUCT_DISCOUNT"));
-	boolean enforceMandatoryTaxes = Boolean.valueOf(Configuration.ConfigValues.getProperty("ENFORCE_MANDATORY_TAXES"));
-	float faltOffAll = Float.valueOf(Configuration.ConfigValues.getProperty("FLAT_OFF_ALL", "0"));
+	boolean discountOnCategory = Boolean.valueOf(Configuration.ConfigValues.getProperty("category.discount"));
+	boolean discountOnProduct = Boolean.valueOf(Configuration.ConfigValues.getProperty("product.discount"));
+	boolean enforceMandatoryTaxes = Boolean.valueOf(Configuration.ConfigValues.getProperty("enforce.mandatory.taxes"));
+	float faltOffAll = Float.valueOf(Configuration.ConfigValues.getProperty("flat.off.for.all", "0"));
 	float itemTaxableamount = 0;
-	boolean revokeTaxesFromAll = Boolean.valueOf(Configuration.ConfigValues.getProperty("REVOKE_TAXES_FROM_ALL"));
-	boolean showTaxDetailsOnBill = Boolean.valueOf(Configuration.ConfigValues.getProperty("SHOW_TAX_DETAILS_ON_BILL"));
+	boolean revokeTaxesFromAll = Boolean.valueOf(Configuration.ConfigValues.getProperty("revoke.taxes.from.all"));
+	boolean showTaxDetailsOnBill = Boolean.valueOf(Configuration.ConfigValues.getProperty("show.tax.details.on.bill"));
 	float total = 0;
 	float totaltaxes = 0;
 
@@ -149,7 +149,7 @@ public class Billing {
 		if (enforceMandatoryTaxes) {
 
 			List<String> enforceTax = Arrays
-					.asList(Configuration.ConfigValues.getProperty("MANDATORY_TAXES").split(":"));
+					.asList(Configuration.ConfigValues.getProperty("mandatory.taxes").split(":"));
 			for (String tax : enforceTax) {
 				taxes.add(DataFeeder.taxTable.get(tax));
 			}
@@ -157,7 +157,7 @@ public class Billing {
 		}
 		if (revokeTaxesFromAll) {
 			List<String> revokeTax = Arrays
-					.asList(Configuration.ConfigValues.getProperty("NOT_APPLICABLE_TAXES").split(":"));
+					.asList(Configuration.ConfigValues.getProperty("not.applicable.taxes").split(":"));
 			for (String tax : revokeTax) {
 				taxes.remove(DataFeeder.taxTable.get(tax));
 			}
