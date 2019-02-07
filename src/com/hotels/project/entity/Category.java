@@ -1,18 +1,10 @@
 package com.hotels.project.entity;
 
-import java.util.Set;
+import com.hotels.project.entity.dto.CategoryDTO;
 
 public interface Category {
 
-	String getCategoryName();
-
-	String getCategoryID();
-
-	Set<Item> getItems();
-
-	Set<Tax> getApplicableTaxs();
-
-	float getDiscount();
+	public CategoryDTO getCategory();
 
 	void executeCategorySpecificRule();
 }

@@ -1,63 +1,31 @@
 package com.hotels.project.entity.implimentation;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.hotels.project.entity.Item;
 import com.hotels.project.entity.Packing;
-import com.hotels.project.entity.Tax;
+import com.hotels.project.entity.dto.ItemDTO;
 
 public class ItemMedicine implements Item {
 
-	String itemID;
-	String itemName;
-	float itemPrice;
-	float discount;
-	Set<Tax> taxes = new HashSet<>();
-
-	public String getItemID() {
-		return itemID;
-	}
+	ItemDTO item;
 
 	@Override
-	public String getItemName() {
-		return itemName;
+	public ItemDTO getItem() {
+		return item;
 	}
 
-	@Override
-	public float getItemPrice() {
-		return itemPrice;
-	}
-
-	@Override
-	public Set<Tax> getApplicableTaxs() {
-		return taxes;
-	}
-
-	public void setItemID(String itemID) {
-		this.itemID = itemID;
-	}
-
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
-
-	public void setItemPrice(float itemPrice) {
-		this.itemPrice = itemPrice;
-	}
-
-	public void setTaxes(Set<Tax> taxes) {
-		this.taxes.addAll(taxes);
+	public void setItem(ItemDTO item) {
+		this.item = item;
 	}
 
 	@Override
 	public void executeItemRule() {
-		System.out.println("\tWARNING: Not saleabe to Kids");
+		System.out.println("\tTODO: Check expiry date.");
+
 	}
 
 	@Override
 	public int hashCode() {
-		return getItemName().hashCode();
+		return item.getItemName().hashCode();
 	}
 
 	@Override
@@ -68,16 +36,7 @@ public class ItemMedicine implements Item {
 			return false;
 		if (obj == this)
 			return true;
-		return this.getItemName().equals(((Item) obj).getItemName());
-	}
-
-	@Override
-	public float getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(float discount) {
-		this.discount = discount;
+		return this.item.getItemName().equals(((Item) obj).getItem().getItemName());
 	}
 
 	@Override

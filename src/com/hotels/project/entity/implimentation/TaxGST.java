@@ -1,37 +1,19 @@
 package com.hotels.project.entity.implimentation;
 
 import com.hotels.project.entity.Tax;
+import com.hotels.project.entity.dto.TaxDTO;
 
 public class TaxGST implements Tax {
 
-	float percentage;
-	String taxID;
-	String taxName;
+	TaxDTO tax;
 
 	@Override
-	public float getPercentage() {
-		return percentage;
+	public TaxDTO getTax() {
+		return tax;
 	}
 
-	public String getTaxID() {
-		return taxID;
-	}
-
-	@Override
-	public String getTaxName() {
-		return taxName;
-	}
-
-	public void setPercentage(float percentage) {
-		this.percentage = percentage;
-	}
-
-	public void setTaxID(String taxID) {
-		this.taxID = taxID;
-	}
-
-	public void setTaxName(String taxName) {
-		this.taxName = taxName;
+	public void setTax(TaxDTO tax) {
+		this.tax = tax;
 	}
 
 	@Override
@@ -41,12 +23,12 @@ public class TaxGST implements Tax {
 
 	@Override
 	public String toString() {
-		return getTaxName() + ":" + getPercentage() + "%";
+		return tax.getTaxName() + ":" + tax.getPercentage() + "%";
 	}
 
 	@Override
 	public int hashCode() {
-		return getTaxName().hashCode();
+		return tax.getTaxName().hashCode();
 	}
 
 	@Override
@@ -57,7 +39,7 @@ public class TaxGST implements Tax {
 			return false;
 		if (obj == this)
 			return true;
-		return this.getTaxName().equals(((Tax) obj).getTaxName());
+		return this.tax.getTaxName().equals(((Tax) obj).getTax().getTaxName());
 	}
 
 }

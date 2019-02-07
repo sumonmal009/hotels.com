@@ -8,10 +8,10 @@ import com.hotels.project.entity.Item;
 public class Packer {
 	public Packer() {
 		boolean showItemGuildlineInfo = Boolean
-				.valueOf(Configuration.ConfigValues.getProperty("SHOW_ITEM_GUIDELINE_INFO"));
+				.valueOf(Configuration.ConfigValues.getProperty("show.item.guideline.info"));
 		boolean showCategoryGuildlineInfo = Boolean
-				.valueOf(Configuration.ConfigValues.getProperty("SHOW_CATEGORY_GUIDELINE_INFO"));
-		boolean packingRequired = Boolean.valueOf(Configuration.ConfigValues.getProperty("PACKING_REQUIRED"));
+				.valueOf(Configuration.ConfigValues.getProperty("show.category.guideline.info"));
+		boolean packingRequired = Boolean.valueOf(Configuration.ConfigValues.getProperty("packing.required"));
 
 		if (packingRequired) {
 			System.out.println("\nPacking for you.\n--------------------");
@@ -20,7 +20,7 @@ public class Packer {
 
 			for (Map.Entry<Item, Integer> itemEntry : CustomersCart.getCart().entrySet()) {
 				item = itemEntry.getKey();
-				System.out.println("Packing " + item.getItemName() + ". " + item.packing().pack());
+				System.out.println("Packing " + item.getItem().getItemName() + ". " + item.packing().pack());
 				if (showItemGuildlineInfo) {
 					infoPrinter.printItemGuidelineInfo(item);
 				}

@@ -19,43 +19,43 @@ import com.hotels.project.util.DateTime;
 
 public class Billing {
 
-	boolean categoryOverride = Boolean.valueOf(Configuration.ConfigValues.getProperty("CATEGORY_OVERRIDE"));
+	boolean categoryOverride = Boolean.valueOf(Configuration.ConfigValues.getProperty("category.override"));
 	boolean considerHigherTaxOverride = Boolean
-			.valueOf(Configuration.ConfigValues.getProperty("CONSIDER_HIGHER_TAX_OVERRIDE"));
+			.valueOf(Configuration.ConfigValues.getProperty("consider.higher.tax.override"));
 	boolean considerLowerTaxOverride = Boolean
-			.valueOf(Configuration.ConfigValues.getProperty("CONSIDER_LOWER_TAX_OVERRIDE"));
+			.valueOf(Configuration.ConfigValues.getProperty("consider.lower.tax.override"));
 	DecimalFormat decimalFormat = new DecimalFormat("#.00");
-	boolean discountOnCategory = Boolean.valueOf(Configuration.ConfigValues.getProperty("CATEGORY_DISCOUNT"));
-	boolean discountOnProduct = Boolean.valueOf(Configuration.ConfigValues.getProperty("PRODUCT_DISCOUNT"));
-	boolean enforceMandatoryTaxes = Boolean.valueOf(Configuration.ConfigValues.getProperty("ENFORCE_MANDATORY_TAXES"));
-	float faltOffAll = Float.valueOf(Configuration.ConfigValues.getProperty("FLAT_OFF_ALL", "0"));
+	boolean discountOnCategory = Boolean.valueOf(Configuration.ConfigValues.getProperty("category.discount"));
+	boolean discountOnProduct = Boolean.valueOf(Configuration.ConfigValues.getProperty("product.discount"));
+	boolean enforceMandatoryTaxes = Boolean.valueOf(Configuration.ConfigValues.getProperty("enforce.mandatory.taxes"));
+	float faltOffAll = Float.valueOf(Configuration.ConfigValues.getProperty("flat.off.for.all", "0"));
 	float itemTaxableamount = 0;
-	boolean revokeTaxesFromAll = Boolean.valueOf(Configuration.ConfigValues.getProperty("REVOKE_TAXES_FROM_ALL"));
-	boolean showTaxDetailsOnBill = Boolean.valueOf(Configuration.ConfigValues.getProperty("SHOW_TAX_DETAILS_ON_BILL"));
+	boolean revokeTaxesFromAll = Boolean.valueOf(Configuration.ConfigValues.getProperty("revoke.taxes.from.all"));
+	boolean showTaxDetailsOnBill = Boolean.valueOf(Configuration.ConfigValues.getProperty("show.tax.details.on.bill"));
 	float total = 0;
 	float totaltaxes = 0;
 
 	public void calculateBill() {
 		System.out.println("-------------------Bill-------------------" + "\n\t" + DateTime.getCurrentDateTime());
 		Map<Item, Integer> cart = getCart();
-		List<Tax> taxlist = null, itemTaxes = null, categoryTaxes = null;
+		Set<Tax> taxlist = null, itemTaxes = null, categoryTaxes = null;
 		float itemDiscount = 0.0f;
 		float categoryDiscountpercent = 0.0f;
 		float categoryDiscount = 0.0f;
 		for (Map.Entry<Item, Integer> itemEntry : cart.entrySet()) {
 			Item item = itemEntry.getKey();
 			int itemQuantity = itemEntry.getValue();
-			float itemPriceWithQuantity = item.getItemPrice()* itemQuantity;
-			System.out.println("Item: " + item.getItemName() + " Qty1 Price: " + decimalFormat.format(item.getItemPrice()) +" Quantity:"+itemQuantity+" Price:"+decimalFormat.format(itemPriceWithQuantity));
+			float itemPriceWithQuantity = item.getItem().getItemPrice()* itemQuantity;
+			System.out.println("Item: " + item.getItem().getItemName() + " Qty1 Price: " + decimalFormat.format(item.getItem().getItemPrice()) +" Quantity:"+itemQuantity+" Price:"+decimalFormat.format(itemPriceWithQuantity));
 			if (discountOnProduct && faltOffAll == 0) {
-				itemDiscount = (itemPriceWithQuantity * (item.getDiscount() / 100));
-				System.out.println("Discount on Item:" + decimalFormat.format(item.getDiscount()) + " is: "
+				itemDiscount = (itemPriceWithQuantity * (item.getItem().getDiscount() / 100));
+				System.out.println("Discount on Item:" + decimalFormat.format(item.getItem().getDiscount()) + " is: "
 						+ decimalFormat.format(itemDiscount));
 			}
 			if (discountOnCategory && faltOffAll == 0) {
 
 				for (Category category : DataFeeder.itemCategoryMapping.get(item)) {
-					categoryDiscountpercent = categoryDiscountpercent + category.getDiscount();
+					categoryDiscountpercent = categoryDiscountpercent + category.getCategory().getDiscount();
 
 				}
 				categoryDiscount = ((itemPriceWithQuantity - itemDiscount) * (categoryDiscountpercent / 100));
@@ -68,23 +68,23 @@ public class Billing {
 			float itemTaxpercent = 0.0f;
 
 			if (categoryOverride == false || considerHigherTaxOverride == true || considerLowerTaxOverride == true) {
-				itemTaxes = new LinkedList<>();
+				itemTaxes = new HashSet<>();
 				Iterator<Tax> taxes = getTaxes(item).iterator();
 				while (taxes.hasNext()) {
 					Tax tax = taxes.next();
 					itemTaxes.add(tax);
-					itemTaxpercent = itemTaxpercent + tax.getPercentage();
+					itemTaxpercent = itemTaxpercent + tax.getTax().getPercentage();
 				}
 
 			}
 			if (categoryOverride == true || considerHigherTaxOverride == true || considerLowerTaxOverride == true) {
-				categoryTaxes = new LinkedList<>();
+				categoryTaxes = new HashSet<>();
 				for (Category category : DataFeeder.itemCategoryMapping.get(item)) {
 					Iterator<Tax> taxes = getTaxes(category).iterator();
 					while (taxes.hasNext()) {
 						Tax tax = taxes.next();
 						categoryTaxes.add(tax);
-						categoryTaxpercent = categoryTaxpercent + tax.getPercentage();
+						categoryTaxpercent = categoryTaxpercent + tax.getTax().getPercentage();
 					}
 				}
 
@@ -140,16 +140,16 @@ public class Billing {
 	private Set<Tax> getTaxes(Object obj) {
 		Set<Tax> taxes = new HashSet<>();
 		if (obj instanceof Category) {
-			taxes = ((Category) obj).getApplicableTaxs();
+			taxes = ((Category) obj).getCategory().getApplicableTaxs();
 		} else if (obj instanceof Item) {
-			taxes = ((Item) obj).getApplicableTaxs();
+			taxes = ((Item) obj).getItem().getApplicableTaxs();
 		}
 
 		// Filter Patern
 		if (enforceMandatoryTaxes) {
 
 			List<String> enforceTax = Arrays
-					.asList(Configuration.ConfigValues.getProperty("MANDATORY_TAXES").split(":"));
+					.asList(Configuration.ConfigValues.getProperty("mandatory.taxes").split(":"));
 			for (String tax : enforceTax) {
 				taxes.add(DataFeeder.taxTable.get(tax));
 			}
@@ -157,7 +157,7 @@ public class Billing {
 		}
 		if (revokeTaxesFromAll) {
 			List<String> revokeTax = Arrays
-					.asList(Configuration.ConfigValues.getProperty("NOT_APPLICABLE_TAXES").split(":"));
+					.asList(Configuration.ConfigValues.getProperty("not.applicable.taxes").split(":"));
 			for (String tax : revokeTax) {
 				taxes.remove(DataFeeder.taxTable.get(tax));
 			}
