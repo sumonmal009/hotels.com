@@ -19,7 +19,7 @@ public class ItemGift implements Item {
 
 	@Override
 	public void executeItemRule() {
-		System.out.println("\tINFO: Fragile item handle with care");
+		System.out.println("\tINFO: Ask the message to write");
 
 	}
 
@@ -42,7 +42,7 @@ public class ItemGift implements Item {
 	@Override
 	public Packing packing() {
 
-		return new PackingCartonBox();
+		return new PackingGiftWrap();
 	}
 
 }

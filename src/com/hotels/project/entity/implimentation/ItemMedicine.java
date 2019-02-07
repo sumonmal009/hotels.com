@@ -19,7 +19,7 @@ public class ItemMedicine implements Item {
 
 	@Override
 	public void executeItemRule() {
-		System.out.println("\tINFO: Fragile item handle with care");
+		System.out.println("\tTODO: Check expiry date.");
 
 	}
 
@@ -42,7 +42,7 @@ public class ItemMedicine implements Item {
 	@Override
 	public Packing packing() {
 
-		return new PackingCartonBox();
+		return new PackingPouch();
 	}
 
 }

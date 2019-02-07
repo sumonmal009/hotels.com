@@ -38,7 +38,7 @@ public class Billing {
 	public void calculateBill() {
 		System.out.println("-------------------Bill-------------------" + "\n\t" + DateTime.getCurrentDateTime());
 		Map<Item, Integer> cart = getCart();
-		List<Tax> taxlist = null, itemTaxes = null, categoryTaxes = null;
+		Set<Tax> taxlist = null, itemTaxes = null, categoryTaxes = null;
 		float itemDiscount = 0.0f;
 		float categoryDiscountpercent = 0.0f;
 		float categoryDiscount = 0.0f;
@@ -68,7 +68,7 @@ public class Billing {
 			float itemTaxpercent = 0.0f;
 
 			if (categoryOverride == false || considerHigherTaxOverride == true || considerLowerTaxOverride == true) {
-				itemTaxes = new LinkedList<>();
+				itemTaxes = new HashSet<>();
 				Iterator<Tax> taxes = getTaxes(item).iterator();
 				while (taxes.hasNext()) {
 					Tax tax = taxes.next();
@@ -78,7 +78,7 @@ public class Billing {
 
 			}
 			if (categoryOverride == true || considerHigherTaxOverride == true || considerLowerTaxOverride == true) {
-				categoryTaxes = new LinkedList<>();
+				categoryTaxes = new HashSet<>();
 				for (Category category : DataFeeder.itemCategoryMapping.get(item)) {
 					Iterator<Tax> taxes = getTaxes(category).iterator();
 					while (taxes.hasNext()) {

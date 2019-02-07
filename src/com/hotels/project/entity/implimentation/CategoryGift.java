@@ -17,7 +17,7 @@ public class CategoryGift implements Category {
 
 	@Override
 	public void executeCategorySpecificRule() {
-		System.out.println("\tINFO: Ask for Zeeta card to avail discount.");
+		System.out.println("\tINFO: Add gift note.");
 	}
 
 	@Override
