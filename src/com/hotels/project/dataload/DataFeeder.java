@@ -83,7 +83,7 @@ public class DataFeeder {
 		fridge.setItem(new ItemDTO());
 		fridge.getItem().setItemID("item05");
 		fridge.getItem().setItemName("fridge");
-		fridge.getItem().setItemPrice(1000.02f);
+		fridge.getItem().setItemPrice(3000.02f);
 		fridge.getItem().setDiscount(10);
 		fridge.getItem().setTaxes(new HashSet<Tax>(Arrays.asList(generalSalesTax, gstTax)));
 

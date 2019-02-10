@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +30,8 @@ public class Billing {
 	float faltOffAll = Float.valueOf(Configuration.ConfigValues.getProperty("flat.off.for.all", "0"));
 	float itemTaxableamount = 0;
 	boolean revokeTaxesFromAll = Boolean.valueOf(Configuration.ConfigValues.getProperty("revoke.taxes.from.all"));
-	boolean showTaxDetailsOnBill = Boolean.valueOf(Configuration.ConfigValues.getProperty("show.tax.details.on.bill"));
+	boolean showCategoryTaxDetailsOnBill = Boolean
+			.valueOf(Configuration.ConfigValues.getProperty("show.category.tax.details.on.bill"));
 	float total = 0;
 	float totaltaxes = 0;
 
@@ -45,8 +45,10 @@ public class Billing {
 		for (Map.Entry<Item, Integer> itemEntry : cart.entrySet()) {
 			Item item = itemEntry.getKey();
 			int itemQuantity = itemEntry.getValue();
-			float itemPriceWithQuantity = item.getItem().getItemPrice()* itemQuantity;
-			System.out.println("Item: " + item.getItem().getItemName() + " Qty1 Price: " + decimalFormat.format(item.getItem().getItemPrice()) +" Quantity:"+itemQuantity+" Price:"+decimalFormat.format(itemPriceWithQuantity));
+			float itemPriceWithQuantity = item.getItem().getItemPrice() * itemQuantity;
+			System.out.println("Item: " + item.getItem().getItemName() + " Qty1 Price: "
+					+ decimalFormat.format(item.getItem().getItemPrice()) + " Quantity:" + itemQuantity + " Price:"
+					+ decimalFormat.format(itemPriceWithQuantity));
 			if (discountOnProduct && faltOffAll == 0) {
 				itemDiscount = (itemPriceWithQuantity * (item.getItem().getDiscount() / 100));
 				System.out.println("Discount on Item:" + decimalFormat.format(item.getItem().getDiscount()) + " is: "
@@ -60,7 +62,8 @@ public class Billing {
 				}
 				categoryDiscount = ((itemPriceWithQuantity - itemDiscount) * (categoryDiscountpercent / 100));
 				System.out.println("Discount on Category: [" + DataFeeder.itemCategoryMapping.get(item).size()
-						+ " category]" + decimalFormat.format(categoryDiscountpercent) + "% is: " + decimalFormat.format(categoryDiscount));
+						+ " category]" + decimalFormat.format(categoryDiscountpercent) + "% is: "
+						+ decimalFormat.format(categoryDiscount));
 			}
 			total = total + itemPriceWithQuantity - itemDiscount - categoryDiscount;
 
@@ -83,8 +86,9 @@ public class Billing {
 					Iterator<Tax> taxes = getTaxes(category).iterator();
 					while (taxes.hasNext()) {
 						Tax tax = taxes.next();
-						categoryTaxes.add(tax);
-						categoryTaxpercent = categoryTaxpercent + tax.getTax().getPercentage();
+						if (categoryTaxes.add(tax)) {
+							categoryTaxpercent = categoryTaxpercent + tax.getTax().getPercentage();
+						}
 					}
 				}
 
@@ -116,7 +120,8 @@ public class Billing {
 			itemTaxableamount = (itemPrice * (taxpercent / 100));
 			totaltaxes += itemTaxableamount;
 			total += itemTaxableamount;
-			if (showTaxDetailsOnBill) {
+			if (showCategoryTaxDetailsOnBill && categoryOverride && !considerHigherTaxOverride
+					&& !considerLowerTaxOverride) {
 				System.out.println("\tApplicable tax:" + taxlist);
 			}
 			System.out.println("\t\t with Tax & Discount:"
