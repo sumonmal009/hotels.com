@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import com.hotels.project.common.EntityMetadata;
 import com.hotels.project.entity.Item;
+import com.hotels.project.exception.InvalidRequestException;
 
 public class ItemFactoryTest {
 
@@ -16,19 +17,19 @@ public class ItemFactoryTest {
 		itemFactory = new ItemFactory();
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testSalesTax() {
-		Assert.assertNull(itemFactory.getTax(EntityMetadata.TAX_SALES));
+		itemFactory.getTax(EntityMetadata.TAX_SALES);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testGST() {
-		Assert.assertNull(itemFactory.getTax(EntityMetadata.TAX_GST));
+		itemFactory.getTax(EntityMetadata.TAX_GST);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testUnknown() {
-		Assert.assertNull(itemFactory.getTax(EntityMetadata.UNKNOWN));
+		itemFactory.getTax(EntityMetadata.UNKNOWN);
 	}
 
 	@Test
@@ -41,24 +42,24 @@ public class ItemFactoryTest {
 		Assert.assertTrue(itemFactory.getItem(EntityMetadata.ITEM_FRAGILE) instanceof Item);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testGetItemUnknown() {
-		Assert.assertNull(itemFactory.getItem(EntityMetadata.UNKNOWN));
+		itemFactory.getItem(EntityMetadata.UNKNOWN);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testGetCategoryGeneral() {
-		Assert.assertNull(itemFactory.getCategory(EntityMetadata.CATEGORY_GENERAL));
+		itemFactory.getCategory(EntityMetadata.CATEGORY_GENERAL);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testGetCategoryHeavyweight() {
-		Assert.assertNull(itemFactory.getCategory(EntityMetadata.CATEGORY_HEAVYWEIGHT));
+		itemFactory.getCategory(EntityMetadata.CATEGORY_HEAVYWEIGHT);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testGetCategoryMedicine() {
-		Assert.assertNull(itemFactory.getCategory(EntityMetadata.CATEGORY_MEDICINE));
+		itemFactory.getCategory(EntityMetadata.CATEGORY_MEDICINE);
 	}
 
 }

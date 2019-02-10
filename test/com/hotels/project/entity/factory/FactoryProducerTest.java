@@ -4,12 +4,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.hotels.project.common.EntityMetadata;
+import com.hotels.project.exception.InvalidRequestException;
 
 public class FactoryProducerTest {
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testUnknown() {
-		Assert.assertNull(FactoryProducer.getFactory(EntityMetadata.UNKNOWN));
+		FactoryProducer.getFactory(EntityMetadata.UNKNOWN);
 	}
 
 	@Test

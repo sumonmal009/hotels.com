@@ -4,11 +4,14 @@ import com.hotels.project.common.EntityMetadata;
 import com.hotels.project.entity.Category;
 import com.hotels.project.entity.Item;
 import com.hotels.project.entity.Tax;
+import com.hotels.project.entity.implimentation.CategoryNull;
 import com.hotels.project.entity.implimentation.ItemFragile;
 import com.hotels.project.entity.implimentation.ItemGift;
 import com.hotels.project.entity.implimentation.ItemGrocerry;
 import com.hotels.project.entity.implimentation.ItemHeavy;
 import com.hotels.project.entity.implimentation.ItemMedicine;
+import com.hotels.project.entity.implimentation.ItemNull;
+import com.hotels.project.entity.implimentation.TaxNull;
 
 public class ItemFactory extends AbstractFactory {
 
@@ -27,19 +30,19 @@ public class ItemFactory extends AbstractFactory {
 		case ITEM_MEDICINE:
 			return new ItemMedicine();
 		default:
-			return null;
+			return new ItemNull();
 		}
 	}
 
 //------------------------------------------------------
 	@Override
 	public Tax getTax(EntityMetadata taxType) {
-		return null;
+		return new TaxNull();
 	}
 
 	@Override
 	public Category getCategory(EntityMetadata categoryType) {
-		return null;
+		return new CategoryNull();
 	}
 
 }

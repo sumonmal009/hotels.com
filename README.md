@@ -25,7 +25,7 @@ data feed in memory through starup load
 Tables represented in Map manner
 [Configurable]configurable application
 	- load from properties, no need of code change for feature toggel.
-Tax breakup functlity
+Tax breakup functionality
 tax overriding functionality
 discount functionality
 choice of tax functionality
@@ -45,10 +45,12 @@ Logger
 Inventory
 
 Design Pattern:
-Abstract Factory
-Builder
-Filter
-Composit Object
+Abstract Factory - factory
+Builder - Packing
+Filter - remove taxes
+Composite Object - Tax, Item
+Command pattern - executeRule()
+Null object pattern - Entity implementation factory default
 
 
 Disclaimer: 

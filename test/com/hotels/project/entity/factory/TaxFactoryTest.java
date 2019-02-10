@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import com.hotels.project.common.EntityMetadata;
 import com.hotels.project.entity.Tax;
-import com.hotels.project.entity.factory.TaxFactory;
+import com.hotels.project.exception.InvalidRequestException;
 
 public class TaxFactoryTest {
 
@@ -27,39 +27,39 @@ public class TaxFactoryTest {
 		Assert.assertTrue(taxFactory.getTax(EntityMetadata.TAX_GST) instanceof Tax);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testUnknown() {
-		Assert.assertEquals(null, taxFactory.getTax(EntityMetadata.UNKNOWN));
+		 taxFactory.getTax(EntityMetadata.UNKNOWN);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testGetItemGrocerry() {
-		Assert.assertEquals(null, taxFactory.getItem(EntityMetadata.ITEM_GROCERRY));
+		 taxFactory.getItem(EntityMetadata.ITEM_GROCERRY);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testGetItemFragile() {
-		Assert.assertEquals(null, taxFactory.getItem(EntityMetadata.ITEM_FRAGILE));
+		 taxFactory.getItem(EntityMetadata.ITEM_FRAGILE);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testGetItemUnknown() {
-		Assert.assertEquals(null, taxFactory.getItem(EntityMetadata.UNKNOWN));
+		 taxFactory.getItem(EntityMetadata.UNKNOWN);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testGetCategoryGeneral() {
-		Assert.assertEquals(null, taxFactory.getCategory(EntityMetadata.CATEGORY_GENERAL));
+		 taxFactory.getCategory(EntityMetadata.CATEGORY_GENERAL);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testGetCategoryHeavyweight() {
-		Assert.assertEquals(null, taxFactory.getCategory(EntityMetadata.CATEGORY_HEAVYWEIGHT));
+		 taxFactory.getCategory(EntityMetadata.CATEGORY_HEAVYWEIGHT);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testGetCategoryMedicine() {
-		Assert.assertEquals(null, taxFactory.getCategory(EntityMetadata.CATEGORY_MEDICINE));
+		 taxFactory.getCategory(EntityMetadata.CATEGORY_MEDICINE);
 	}
 
 }

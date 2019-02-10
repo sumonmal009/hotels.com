@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import com.hotels.project.common.EntityMetadata;
 import com.hotels.project.entity.Category;
+import com.hotels.project.exception.InvalidRequestException;
 
 public class CategoryFactoryTest {
 
@@ -16,34 +17,34 @@ public class CategoryFactoryTest {
 		categoryFactory = new CategoryFactory();
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testSalesTax() {
-		Assert.assertNull(categoryFactory.getTax(EntityMetadata.TAX_SALES));
+		categoryFactory.getTax(EntityMetadata.TAX_SALES);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testGST() {
-		Assert.assertNull(categoryFactory.getTax(EntityMetadata.TAX_GST));
+		categoryFactory.getTax(EntityMetadata.TAX_GST);
 	}
 
-	@Test
+	@Test(expected = InvalidRequestException.class)
 	public void testUnknown() {
-		Assert.assertNull(categoryFactory.getTax(EntityMetadata.UNKNOWN));
+		categoryFactory.getTax(EntityMetadata.UNKNOWN);
 	}
 
-	@Test
+	@Test(expected = InvalidRequestException.class)
 	public void testGetItemGrocerry() {
-		Assert.assertNull(categoryFactory.getTax(EntityMetadata.ITEM_GROCERRY));
+		categoryFactory.getTax(EntityMetadata.ITEM_GROCERRY);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testGetItemFragile() {
-		Assert.assertNull(categoryFactory.getTax(EntityMetadata.ITEM_FRAGILE));
+		categoryFactory.getTax(EntityMetadata.ITEM_FRAGILE);
 	}
 
-	@Test
+	@Test(expected=InvalidRequestException.class)
 	public void testGetItemUnknown() {
-		Assert.assertNull(categoryFactory.getTax(EntityMetadata.UNKNOWN));
+		categoryFactory.getTax(EntityMetadata.UNKNOWN);
 	}
 
 	@Test

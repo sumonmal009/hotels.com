@@ -4,7 +4,10 @@ import com.hotels.project.common.EntityMetadata;
 import com.hotels.project.entity.Category;
 import com.hotels.project.entity.Item;
 import com.hotels.project.entity.Tax;
+import com.hotels.project.entity.implimentation.CategoryNull;
+import com.hotels.project.entity.implimentation.ItemNull;
 import com.hotels.project.entity.implimentation.TaxGST;
+import com.hotels.project.entity.implimentation.TaxNull;
 import com.hotels.project.entity.implimentation.TaxSales;
 
 public class TaxFactory extends AbstractFactory {
@@ -19,7 +22,7 @@ public class TaxFactory extends AbstractFactory {
 			return new TaxGST();
 
 		default:
-			return null;
+			return new TaxNull();
 		}
 
 	}
@@ -28,12 +31,12 @@ public class TaxFactory extends AbstractFactory {
 
 	@Override
 	public Item getItem(EntityMetadata itemType) {
-		return null;
+		return new ItemNull();
 	}
 
 	@Override
 	public Category getCategory(EntityMetadata categoryType) {
-		return null;
+		return new CategoryNull();
 	}
 
 }

@@ -13,36 +13,21 @@ import com.hotels.project.entity.implimentation.CategoryNewArrival;
 import com.hotels.project.entity.implimentation.CategoryNull;
 import com.hotels.project.entity.implimentation.ItemNull;
 import com.hotels.project.entity.implimentation.TaxNull;
+import com.hotels.project.exception.InvalidRequestException;
 
-public class CategoryFactory extends AbstractFactory {
+public class NullFactory extends AbstractFactory {
+
+	public NullFactory()  {
+		System.out.println("Not an available type of Factory.");
+		throw new InvalidRequestException();
+		
+	}
 
 	@Override
 	public Category getCategory(EntityMetadata category) {
 
-		// EntityMetadata categoryType = EntityMetadata.valueOf(category);
-
-		switch (category) {
-		case CATEGORY_GENERAL:
-			return new CategoryGeneral();
-
-		case CATEGORY_MEDICINE:
-			return new CategoryMedicine();
-
-		case CATEGORY_KIDS:
-			return new CategoryKids();
-		case CATEGORY_GIFT:
-			return new CategoryGift();
-		case CATEGORY_HEAVYWEIGHT:
-			return new CategoryHeavyWeight();
-		case CATEGORY_NEW_ARRIAVEL:
-			return new CategoryNewArrival();
-
-		default:
-			return new CategoryNull();
-		}
+		return new CategoryNull();
 	}
-
-//------------------------------------------------------
 
 	@Override
 	public Item getItem(EntityMetadata itemType) {
